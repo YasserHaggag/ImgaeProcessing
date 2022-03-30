@@ -17,7 +17,7 @@ resize.get('/',async (req:express.Request, res:express.Response, resizedimages):
       await resizeImage(name, width, height, isImageexist);
      
 
-      res.sendFile(`D:/Udacity/imageProcessingProject/fileStorage/resizedimages/${name}_${width}_${height}.jpg`);
+      res.sendFile(path.resolve('./') + `/fileStorage/resizedimages/${name}_${width}_${height}.jpg`);
 
 
 

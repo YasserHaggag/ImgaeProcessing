@@ -40,6 +40,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
+var path_1 = __importDefault(require("path"));
 var ImageProcessing_1 = require("../../utilities/ImageProcessing");
 var resize = express_1.default.Router();
 resize.get('/', function (req, res, resizedimages) { return __awaiter(void 0, void 0, void 0, function () {
@@ -57,7 +58,7 @@ resize.get('/', function (req, res, resizedimages) { return __awaiter(void 0, vo
                 return [4 /*yield*/, (0, ImageProcessing_1.resizeImage)(name, width, height, isImageexist)];
             case 2:
                 _a.sent();
-                res.sendFile("D:/Udacity/imageProcessingProject/fileStorage/resizedimages/".concat(name, "_").concat(width, "_").concat(height, ".jpg"));
+                res.sendFile(path_1.default.resolve('./') + "/fileStorage/resizedimages/".concat(name, "_").concat(width, "_").concat(height, ".jpg"));
                 return [3 /*break*/, 4];
             case 3:
                 err_1 = _a.sent();

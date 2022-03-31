@@ -18,6 +18,7 @@ interface queries {
    const location = path.resolve('./') + `/fileStorage/${name}.jpg`;
    const locations = path.resolve('./') + `/fileStorage/resizedimages/${name}_${width}_${height}.jpg`;
    if (name === undefined || existingimage == false) {
+      
       return console.log('File name is incorrect!')
 
    } else if (height == null || height == NaN) {

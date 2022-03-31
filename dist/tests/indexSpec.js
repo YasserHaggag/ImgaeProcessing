@@ -71,7 +71,7 @@ it('test the api route', function () { return __awaiter(void 0, void 0, void 0, 
     });
 }); });
 it('test the Resizeimage function with Valid data', function () {
-    request.get('/api/imageResize', function () {
+    request.get('http://localhost:3000/api/imageResize', function () {
         (0, ImageProcessing_1.resizeImage)('fjord', 50, 50, true);
     }).then(function (res) { expect(res.status).toBe(200); });
 });

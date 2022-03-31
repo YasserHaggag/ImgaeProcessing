@@ -27,5 +27,5 @@ number value
 http://localhost:3000/api/images?filename=fjord Will display the original fjord image.
 
 #### Example 2
-http://localhost:3000/api/images?filename=fjord&width=200&height=200 Will scale the fjord image to 200 by 200 pixels and store the resulting image.
+http://localhost:3000/api/imageResize?filename=fjord&width=200&height=200 Will scale the fjord image to 200 by 200 pixels and store the resulting image.
 

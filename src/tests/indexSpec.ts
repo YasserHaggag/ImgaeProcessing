@@ -23,7 +23,7 @@ describe('API Resize testsuite',()=>
 
     it('test the Resizeimage function with Valid data', ()=>
     {
-       request.get('/api/imageResize',()=>
+       request.get('http://localhost:3000/api/imageResize',()=>
         {
           resizeImage('fjord',50,50,true)
         }).then((res)=>{expect(res.status).toBe(200)})

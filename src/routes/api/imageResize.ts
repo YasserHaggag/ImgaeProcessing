@@ -1,33 +1,33 @@
-import express from 'express';
+import express, { NextFunction } from 'express';
 import path from 'path';
 import { imagenames, resizeImage, queries } from '../../utilities/ImageProcessing';
-import sharp from 'sharp';
-import fsPromises from 'fs'
-import { nextTick } from 'process';
+
+
 const resize = express.Router();
 
 
 
-resize.get('/',async (req:express.Request, res:express.Response, resizedimages):Promise<void> => {
+resize.get('/', async (req: express.Request, res: express.Response): Promise<void> => {
    const name = req.query.name as string;
    const width = Number(req.query.width);
    const height = Number(req.query.height);
    let isImageexist = imagenames.includes(name);
-   try {
+
+   if (name === undefined || isImageexist == false) {
+
+      res.status(400).json({ "Message": "The file name is Incorrect or Empty" })
+
+
+   } else if (height == null || height == NaN || height ==0) {
+      res.status(400).json({ "Message": 'please enter a valid heigh!' })
+
+   } else if (width == null || width == NaN || width ==0) {
+      res.status(400).json({ "Message": 'please enter a valid Width!' })
+
+   } else {
       await resizeImage(name, width, height, isImageexist);
-     
-
       res.sendFile(path.resolve('./') + `/fileStorage/resizedimages/${name}_${width}_${height}.jpg`);
-
-
-
-   } catch (err) {
-      
-
-   };
-
-
-
+   }
 
 })
 

@@ -70,11 +70,18 @@ it('test the api route', function () { return __awaiter(void 0, void 0, void 0, 
         }
     });
 }); });
-it('test the Resizeimage function with Valid data', function () {
-    request.get('http://localhost:3000/api/imageResize', function () {
-        (0, ImageProcessing_1.resizeImage)('fjord', 50, 50, true);
-    }).then(function (res) { expect(res.status).toBe(200); });
-});
+it('test the Resizeimage function with Valid data', function () { return __awaiter(void 0, void 0, void 0, function () {
+    var res;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, request.get('http://localhost:3000/api/imageResize?name=fjord&width=50&hieght=50')];
+            case 1:
+                res = _a.sent();
+                expect(res.status).toBe(200);
+                return [2 /*return*/];
+        }
+    });
+}); });
 it('test the Resizeimage function with_ Wrong file name', function () {
     request.get('/api/imageResize', function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {

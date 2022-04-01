@@ -21,12 +21,10 @@ describe('API Resize testsuite',()=>
         expect(response.body.Message).toBe('Main API route')
     });
 
-    it('test the Resizeimage function with Valid data', ()=>
+    it('test the Resizeimage function with Valid data', async ()=>
     {
-       request.get('http://localhost:3000/api/imageResize',()=>
-        {
-          resizeImage('fjord',50,50,true)
-        }).then((res)=>{expect(res.status).toBe(200)})
+       const res= await request.get('http://localhost:3000/api/imageResize?name=fjord&width=50&hieght=50');
+       expect(res.status).toBe(200)
         
       
     });

@@ -1,5 +1,6 @@
 import express, { NextFunction } from 'express';
 import path from 'path';
+import { nextTick } from 'process';
 import { imagenames, resizeImage, queries } from '../../utilities/ImageProcessing';
 
 
@@ -7,7 +8,7 @@ const resize = express.Router();
 
 
 
-resize.get('/', async (req: express.Request, res: express.Response): Promise<void> => {
+resize.get('/', async (req: express.Request, res: express.Response,next:NextFunction): Promise<void> => {
    const name = req.query.name as string;
    const width = Number(req.query.width);
    const height = Number(req.query.height);
@@ -18,17 +19,20 @@ resize.get('/', async (req: express.Request, res: express.Response): Promise<voi
       res.status(400).json({ "Message": "The file name is Incorrect or Empty" })
 
 
-   } else if (height == null || height == NaN || height ==0) {
+   } else if (height == null || isNaN(height) || height ==0) {
       res.status(400).json({ "Message": 'please enter a valid heigh!' })
 
-   } else if (width == null || width == NaN || width ==0) {
+   } else if (width == null ||  isNaN(width) || width ==0) {
       res.status(400).json({ "Message": 'please enter a valid Width!' })
+     
 
    } else {
       await resizeImage(name, width, height, isImageexist);
       res.sendFile(path.resolve('./') + `/fileStorage/resizedimages/${name}_${width}_${height}.jpg`);
+     
    }
-
+   
+   next();
 })
 
 

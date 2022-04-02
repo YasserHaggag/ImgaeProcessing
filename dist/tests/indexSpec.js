@@ -41,7 +41,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var supertest_1 = __importDefault(require("supertest"));
 var index_1 = __importDefault(require("../index"));
-var ImageProcessing_1 = require("../utilities/ImageProcessing");
 var request = (0, supertest_1.default)(index_1.default);
 describe('API Resize testsuite', function () {
     it('test the main api route', function () { return __awaiter(void 0, void 0, void 0, function () {
@@ -56,37 +55,82 @@ describe('API Resize testsuite', function () {
             }
         });
     }); });
-});
-it('test the api route', function () { return __awaiter(void 0, void 0, void 0, function () {
-    var response;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, request.get('/api')];
-            case 1:
-                response = _a.sent();
-                expect(response.status).toBe(200);
-                expect(response.body.Message).toBe('Main API route');
-                return [2 /*return*/];
-        }
-    });
-}); });
-it('test the Resizeimage function with Valid data', function () { return __awaiter(void 0, void 0, void 0, function () {
-    var res;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, request.get('http://localhost:3000/api/imageResize?name=fjord&width=50&hieght=50')];
-            case 1:
-                res = _a.sent();
-                expect(res.status).toBe(200);
-                return [2 /*return*/];
-        }
-    });
-}); });
-it('test the Resizeimage function with_ Wrong file name', function () {
-    request.get('/api/imageResize', function () { return __awaiter(void 0, void 0, void 0, function () {
+    it('test the api route', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var response;
         return __generator(this, function (_a) {
-            (0, ImageProcessing_1.resizeImage)('cord', 50, 50, false);
-            return [2 /*return*/];
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, request.get('/api')];
+                case 1:
+                    response = _a.sent();
+                    expect(response.status).toBe(200);
+                    expect(response.body.Message).toBe('Main API route');
+                    return [2 /*return*/];
+            }
         });
-    }); }).then(function (res) { expect(res.status).toBe(200); });
+    }); });
+    it('test the Resizeimage function with Valid data', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var res;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, request.get('/api/imageResize?name=fjord&width=10&height=5')];
+                case 1:
+                    res = _a.sent();
+                    expect(res.status).toBe(200);
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('test the Resizeimage function with string in hieght', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var res;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, request.get('/api/imageResize?name=fjord&width=50&height=ssssss')];
+                case 1:
+                    res = _a.sent();
+                    expect(res.status).toBe(400);
+                    expect(res.body.Message).toBe('please enter a valid height!');
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('test the Resizeimage function with string in width', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var res;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, request.get('/api/imageResize?name=fjord&width=anytext&height=600')];
+                case 1:
+                    res = _a.sent();
+                    expect(res.status).toBe(400);
+                    expect(res.body.Message).toBe('please enter a valid width!');
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('test the Resizeimage function with wrong image name', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var res;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, request.get('/api/imageResize?name=ford&width=600&height=600')];
+                case 1:
+                    res = _a.sent();
+                    expect(res.status).toBe(404);
+                    expect(res.body.Message).toBe('The file name is Incorrect or Empty');
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('test the Resizeimage function with Empty image name', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var res;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, request.get('/api/imageResize?name=&width=600&hieght=600')];
+                case 1:
+                    res = _a.sent();
+                    console.log(res.body.Message);
+                    expect(res.status).toBe(404);
+                    expect(res.body.Message).toBe('The file name is Incorrect or Empty');
+                    return [2 /*return*/];
+            }
+        });
+    }); });
 });

@@ -53,43 +53,12 @@ function resizeImage(name, width, height, existingimage) {
                 case 0:
                     location = path_1.default.resolve('./') + "/fileStorage/".concat(name, ".jpg");
                     locations = path_1.default.resolve('./') + "/fileStorage/resizedimages/".concat(name, "_").concat(width, "_").concat(height, ".jpg");
-                    if (name === undefined || existingimage == false) {
-                        return [2 /*return*/, console.log('File name is incorrect!')];
-                    }
-                    else if (height == null || height == NaN) {
-                        return [2 /*return*/, console.log('please enter a valid heigh!')];
-                    }
-                    else if (width == null || width == NaN) {
-                        return [2 /*return*/, console.log('please enter a valid width!')];
-                    }
-                    /*   async function res()
-                      {
-                       await sharp(location).toFile(locations).then(()=>
-                       {
-                          sharp(location).resize(width, height).toFile(locations);
-                    
-                       })
-                    
-                    
-                      }
-                      res(); */
                     return [4 /*yield*/, (0, sharp_1.default)(location)
                             .resize(width, height)
                             .jpeg({ mozjpeg: true })
                             .toFile(locations)
                             .catch(function (err) { console.log(err); })];
                 case 1:
-                    /*   async function res()
-                      {
-                       await sharp(location).toFile(locations).then(()=>
-                       {
-                          sharp(location).resize(width, height).toFile(locations);
-                    
-                       })
-                    
-                    
-                      }
-                      res(); */
                     _a.sent();
                     return [2 /*return*/];
             }

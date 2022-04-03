@@ -1,5 +1,8 @@
+import path from 'path';
 import supertest from 'supertest'
 import app from '../index';
+import resize from '../routes/api/imageResize';
+import { resizeImage } from '../utilities/ImageProcessing';
 
 
 const request = supertest(app);
@@ -48,9 +51,18 @@ describe('API Resize testsuite', () => {
 
    it('test the Resizeimage function with Empty image name', async () => {
       const res = await request.get('/api/imageResize?name=&width=600&hieght=600')
-      console.log(res.body.Message)
       expect(res.status).toBe(404)
       expect(res.body.Message).toBe('The file name is Incorrect or Empty')
+
+
+   });
+
+   it('test the Resizeimage function with Empty image name', async () => {
+     await resizeImage('fjord',20,50,true).then(()=>
+     {
+      expect(path.resolve('./') + `/fileStorage/resizedimages/fjord_10_5.jpg`).toBeNull
+     })
+    
 
 
    });

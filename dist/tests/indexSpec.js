@@ -39,7 +39,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var path_1 = __importDefault(require("path"));
 var supertest_1 = __importDefault(require("supertest"));
 var index_1 = __importDefault(require("../index"));
 var ImageProcessing_1 = require("../utilities/ImageProcessing");
@@ -134,16 +133,16 @@ describe('API Resize testsuite', function () {
             }
         });
     }); });
-    it('test the Resizeimage function with Empty image name', function () { return __awaiter(void 0, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, (0, ImageProcessing_1.resizeImage)('fjord', 20, 50, true).then(function () {
-                        expect(path_1.default.resolve('./') + "/fileStorage/resizedimages/fjord_10_5.jpg").toBeNull;
-                    })];
-                case 1:
-                    _a.sent();
-                    return [2 /*return*/];
-            }
-        });
-    }); });
+    it('test ResizeImage method', function () {
+        expect(function () { return __awaiter(void 0, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, (0, ImageProcessing_1.resizeImage)('fjord', 20, 50, true)];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        }); }).not.toThrow();
+    });
 });

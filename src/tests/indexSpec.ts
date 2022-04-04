@@ -57,15 +57,10 @@ describe('API Resize testsuite', () => {
 
    });
 
-   it('test the Resizeimage function with Empty image name', async () => {
-     await resizeImage('fjord',20,50,true).then(()=>
-     {
-      expect(path.resolve('./') + `/fileStorage/resizedimages/fjord_10_5.jpg`).toBeNull
-     })
-    
-
-
-   });
+  
+   it('test ResizeImage method',()=>{expect(async () => {
+      await resizeImage('fjord',20,50,true);
+  }).not.toThrow()})
 
 
 });

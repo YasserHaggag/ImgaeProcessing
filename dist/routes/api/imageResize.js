@@ -42,40 +42,46 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var path_1 = __importDefault(require("path"));
 var ImageProcessing_1 = require("../../utilities/ImageProcessing");
+var fs_1 = __importDefault(require("fs"));
 var resize = express_1.default.Router();
 resize.get('/', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var name, width, height, isImageexist, error_1;
+    var name, width, height, outputlocation, isImageexist, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 name = req.query.name;
                 width = Number(req.query.width);
                 height = Number(req.query.height);
+                outputlocation = path_1.default.resolve('./') + "/fileStorage/resizedimages/".concat(name, "_").concat(width, "_").concat(height, ".jpg");
                 isImageexist = ImageProcessing_1.imagenames.includes(name);
                 _a.label = 1;
             case 1:
-                _a.trys.push([1, 7, , 8]);
+                _a.trys.push([1, 8, , 9]);
                 if (!(name === undefined || isImageexist == false)) return [3 /*break*/, 2];
                 res.status(404).json({ "Message": "The file name is Incorrect or Empty" });
-                return [3 /*break*/, 6];
+                return [3 /*break*/, 7];
             case 2:
                 if (!(height == null || isNaN(height) || height == 0)) return [3 /*break*/, 3];
                 res.status(400).json({ "Message": 'please enter a valid height!' });
-                return [3 /*break*/, 6];
+                return [3 /*break*/, 7];
             case 3:
                 if (!(width == null || isNaN(width) || width == 0)) return [3 /*break*/, 4];
                 res.status(400).json({ "Message": 'please enter a valid width!' });
-                return [3 /*break*/, 6];
-            case 4: return [4 /*yield*/, (0, ImageProcessing_1.resizeImage)(name, width, height, isImageexist)];
-            case 5:
+                return [3 /*break*/, 7];
+            case 4:
+                if (!fs_1.default.existsSync(outputlocation)) return [3 /*break*/, 5];
+                res.sendFile(path_1.default.resolve('./') + "/fileStorage/resizedimages/".concat(name, "_").concat(width, "_").concat(height, ".jpg"));
+                return [3 /*break*/, 7];
+            case 5: return [4 /*yield*/, (0, ImageProcessing_1.resizeImage)(name, width, height, isImageexist)];
+            case 6:
                 _a.sent();
                 res.sendFile(path_1.default.resolve('./') + "/fileStorage/resizedimages/".concat(name, "_").concat(width, "_").concat(height, ".jpg"));
-                _a.label = 6;
-            case 6: return [3 /*break*/, 8];
-            case 7:
+                _a.label = 7;
+            case 7: return [3 /*break*/, 9];
+            case 8:
                 error_1 = _a.sent();
                 throw new Error();
-            case 8: return [2 /*return*/];
+            case 9: return [2 /*return*/];
         }
     });
 }); });

@@ -4,7 +4,7 @@
   "description": "Project to get an image and resize it then send the output",
   "main": " ",
   "scripts": {
-    "prettier": "prettier --config ./.prettierrc.json ./dist/*.js --write",
+    "prettier": "prettier --config ./.prettierrc.json src/**/*.ts --write",
     "lint": "eslint . --ext .ts",
     "build": "npx tsc",
     "test": "npm run build && npm run jasmine",

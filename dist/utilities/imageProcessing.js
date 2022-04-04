@@ -42,9 +42,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.resizeImage = exports.imagenames = void 0;
 var sharp_1 = __importDefault(require("sharp"));
 var path_1 = __importDefault(require("path"));
-var imagenames = ['encenadaport', 'fjord', 'icelandwaterfall', 'palmtunnel', 'santamonica', 'output'];
+var imagenames = [
+    'encenadaport',
+    'fjord',
+    'icelandwaterfall',
+    'palmtunnel',
+    'santamonica',
+    'output',
+];
 exports.imagenames = imagenames;
-;
 function resizeImage(name, width, height, existingimage) {
     return __awaiter(this, void 0, void 0, function () {
         var location, locations;
@@ -52,12 +58,15 @@ function resizeImage(name, width, height, existingimage) {
             switch (_a.label) {
                 case 0:
                     location = path_1.default.resolve('./') + "/fileStorage/".concat(name, ".jpg");
-                    locations = path_1.default.resolve('./') + "/fileStorage/resizedimages/".concat(name, "_").concat(width, "_").concat(height, ".jpg");
+                    locations = path_1.default.resolve('./') +
+                        "/fileStorage/resizedimages/".concat(name, "_").concat(width, "_").concat(height, ".jpg");
                     return [4 /*yield*/, (0, sharp_1.default)(location)
                             .resize(width, height)
                             .jpeg({ mozjpeg: true })
                             .toFile(locations)
-                            .catch(function (err) { console.log(err); })];
+                            .catch(function (err) {
+                            console.log(err);
+                        })];
                 case 1:
                     _a.sent();
                     return [2 /*return*/];

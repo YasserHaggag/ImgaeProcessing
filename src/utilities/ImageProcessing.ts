@@ -20,8 +20,6 @@ async function resizeImage(name: string, width: number, height: number, existing
 
 
 
-
-
    await sharp(location)
 
       .resize(width, height)
